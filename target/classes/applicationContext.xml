@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- spring bean生命周期-->
+
+    <bean id="user" class="com.mikechen.spring.ioc.User" init-method="init" destroy-method="destroyMethod">
+        <property name="name" value="mikechen" />
+    </bean>
+
+<!--    &lt;!&ndash; bean生命周期 源码解析使用 &ndash;&gt;-->
+<!--    <bean name="myBeanPostProcessor" class="com.mikechen.spring.bean.MyBeanPostProcessor" />-->
+<!--    <bean name="personBean" class="com.mikechen.spring.bean.Person"-->
+<!--          init-method="init" destroy-method="destroyMethod">-->
+<!--        <property name="name" value="mikechen" />-->
+<!--    </bean>-->
+
+</beans>

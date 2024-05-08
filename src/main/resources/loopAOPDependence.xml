@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd" >
+
+    <!-- spring bean循环依赖  属性注入-->
+    <bean id="classA" class="com.mikechen.spring.loop.ClassA" scope="singleton">
+        <property name="classB" ref="classB"></property>
+    </bean>
+
+    <bean id="classB" class="com.mikechen.spring.loop.ClassB" scope="singleton">
+        <property name="classA" ref="classA"></property>
+    </bean>
+
+
+    <!--切面类-->
+    <bean id="myAspect" class=" com.mikechen.spring.loop.MyAspect"/>
+
+    <!--面向切面编程-->
+    <aop:config>
+        <!--定义切面-->
+        <aop:aspect ref="myAspect">
+            <!--定义切点-->
+            <aop:pointcut id="action" expression="execution(public void com.mikechen.spring.loop.*.sayHello(..))"/>
+
+            <!-- 声明前置通知 (在切点方法被执行前调用)-->
+            <aop:before method="before" pointcut-ref="action"/>
+
+            <!-- 声明后置通知 (在切点方法被执行后调用)-->
+            <aop:after method="after" pointcut-ref="action"/>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>
